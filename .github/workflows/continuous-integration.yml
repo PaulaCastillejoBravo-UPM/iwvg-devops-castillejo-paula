@@ -54,8 +54,8 @@ jobs:
       - name: 📊 Sonar Analysis
         run: >
           mvn -B sonar:sonar 
-          -Dsonar.projectKey=PaulaCastillejoBravo-UPM_${{ env.ARTIFACT }}
-          -Dsonar.organization=PaulaCastillejoBravo-UPM
+          -Dsonar.projectKey=paulacastillejobravo-upm_${{ env.ARTIFACT }}
+          -Dsonar.organization=paulacastillejobravo-upm
           -Dsonar.host.url=https://sonarcloud.io 
           -Dsonar.token=${{ secrets.SONAR_TOKEN }}
         env:
