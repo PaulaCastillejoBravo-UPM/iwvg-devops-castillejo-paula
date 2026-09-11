@@ -43,7 +43,7 @@ jobs:
         with:
           payload: |
             {
-             "text": "*Successful Continuous Integration!*\ n*Repository:* ${{ github.repository }}\n*Branch:* ${{ github.ref_name }}\n*Author:* ${{ github.actor }}\n*Commit:* ${{ github.sha }}\n*Status:* The Spring Boot API has been successfully compiled and validated using the Maven tests."
+                "text": "*Successful Continuous Integration!*\n*Repository:* ${{ github.repository }}\n*Branch:* ${{ github.ref_name }}\n*Author:* ${{ github.actor }}\n*Commit:* ${{ github.sha }}\n*Status:* The Spring Boot API has been successfully compiled and validated using the Maven tests."
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
