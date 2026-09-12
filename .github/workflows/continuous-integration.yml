@@ -32,14 +32,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check database file
+      - name: Check database files
         run: |
           echo "Current directory:"
           pwd
           echo "Repository contents:"
           ls -la
-          echo "Searching for user.sql:"
-          find . -type f -name "user.sql"
+          echo "Database directory:"
+          find ddbb -type f -print
 
       - name: Set up Java
         uses: actions/setup-java@v4
