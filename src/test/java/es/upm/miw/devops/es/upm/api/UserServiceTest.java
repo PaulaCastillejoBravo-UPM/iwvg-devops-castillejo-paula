@@ -10,6 +10,9 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import es.upm.miw.devops.es.upm.api.services.exceptions.UserNotFoundException;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -31,5 +34,16 @@ class UserServiceTest {
         assertThat(user.getFirstName()).isEqualTo("Alice");
         assertThat(user.getFamilyName()).isEqualTo("Smith");
         assertThat(user.getEmail()).isEqualTo("alice@example.com");
+    }
+
+
+    @Test
+    void testFindByIdNotFound() {
+        UUID userId = UUID.fromString(
+                "99999999-9999-9999-9999-999999999999"
+        );
+
+        assertThatThrownBy(() -> userService.findById(userId))
+                .isInstanceOf(UserNotFoundException.class);
     }
 }

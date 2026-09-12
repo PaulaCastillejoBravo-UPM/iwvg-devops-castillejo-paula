@@ -6,7 +6,6 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import es.upm.miw.devops.es.upm.api.UserController;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
@@ -15,9 +14,6 @@ class UserResourceFT {
 
     @Autowired
     private WebTestClient webTestClient;
-
-    @Autowired
-    private UserController userController;
 
     @Test
     void testFindById() {
@@ -34,5 +30,21 @@ class UserResourceFT {
                 .isEqualTo("Smith")
                 .jsonPath("$.email")
                 .isEqualTo("alice@example.com");
+    }
+
+    @Test
+    void testFindByIdNotFound() {
+        webTestClient.get()
+                .uri("/users/99999999-9999-9999-9999-999999999999")
+                .exchange()
+                .expectStatus().isNotFound();
+    }
+
+    @Test
+    void testFindByIdBadRequest() {
+        webTestClient.get()
+                .uri("/users/not-a-valid-uuid")
+                .exchange()
+                .expectStatus().isBadRequest();
     }
 }

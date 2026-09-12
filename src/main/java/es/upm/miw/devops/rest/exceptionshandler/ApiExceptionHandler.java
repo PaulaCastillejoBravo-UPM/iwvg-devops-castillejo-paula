@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
@@ -25,13 +26,23 @@ public class ApiExceptionHandler {
                 HttpStatus.NOT_FOUND.value());
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ResponseBody
+    public ErrorMessage methodArgumentTypeMismatch(MethodArgumentTypeMismatchException exception) {
+        return new ErrorMessage(
+                exception,
+                HttpStatus.BAD_REQUEST.value());
+    }
+
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler({
             Exception.class
     })
     @ResponseBody
     public ErrorMessage exception(Exception exception) {
-        return new ErrorMessage(new RuntimeException("ERROR"), HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return new ErrorMessage(
+                new RuntimeException("ERROR"),
+                HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
-
 }
