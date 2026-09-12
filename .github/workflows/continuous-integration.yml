@@ -11,6 +11,20 @@ jobs:
       contents: read
       actions: read
       security-events: write
+    services:
+      postgres:
+        image: postgres:15.10
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: devopsDb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d devopsDb"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout repository
@@ -33,6 +47,11 @@ jobs:
         with:
           languages: java
           queries: security-extended
+
+      - name: Seed database
+        run: |
+          docker exec -i $(docker ps -q --filter "ancestor=postgres:15.10") \
+            psql -U postgres -d devopsDb < bbdd/init/user.sql
 
       - name: Run Unit & Integration Test & Functional Test
         run: mvn -B verify
