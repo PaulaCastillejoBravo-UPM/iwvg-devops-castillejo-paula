@@ -32,15 +32,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check database files
-        run: |
-          echo "Current directory:"
-          pwd
-          echo "Repository contents:"
-          ls -la
-          echo "Database directory:"
-          find ddbb -type f -print
-
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -60,7 +51,7 @@ jobs:
       - name: Seed database
         run: |
           docker exec -i $(docker ps -q --filter "ancestor=postgres:15.10") \
-            psql -U postgres -d devopsDb < ddbb/init/user.sql
+            psql -U postgres -d devopsDb < ddbb/init/users.sql
 
       - name: Run Unit & Integration Test & Functional Test
         run: mvn -B verify
