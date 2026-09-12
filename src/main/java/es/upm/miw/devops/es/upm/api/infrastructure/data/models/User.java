@@ -10,10 +10,12 @@ public class User {
     private String familyName;
     private String mobile;
     private String email;
+    private String identity;
     private String address;
     private String city;
 
     private Integer postalCode;
+    private String province;
     private String password;
 
     public User(
@@ -22,9 +24,11 @@ public class User {
             String familyName,
             String email,
             String mobile,
+            String identity,
             String address,
             String city,
             Integer postalCode,
+            String province,
             String password
     ) {
         this.id = id;
@@ -33,64 +37,35 @@ public class User {
         this.familyName = familyName;
         this.email = email;
         this.mobile = mobile;
+        this.identity = identity;
         this.address = address;
         this.city = city;
 
         this.postalCode = postalCode;
+        this.province = province;
         this.password = password;
     }
 
-    public UUID getId() {
-        return id;
-    }
-    public void setId(UUID id) {
-        this.id = id;
-    }
+    public UUID getId() {return id;}
 
-    public String getFirstName() {
-        return firstName;
-    }
-    public void setFirstName(String name) {
-        this.firstName = name;
-    }
+    public String getFirstName() {return firstName;}
 
-    public String getFamilyName() {
-        return familyName;
-    }
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
-    }
+    public String getFamilyName() {return familyName;}
 
-    public String getMobile() {
-        return mobile;
-    }
-    public void setMobile(String mobile) { this.mobile = mobile; }
+    public String getMobile() {return mobile;}
 
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) { this.email = email; }
+    public String getEmail() {return email;}
 
-    public String getAddress() {
-        return address;
-    }
-    public void setAddress(String address) { this.address = address; }
+    public String getIdentity() {return identity;}
 
-    public String getCity() {
-        return city;
-    }
-    public void setCity(String city) {
-        this.city = city;
-    }
+    public String getAddress() {return address;}
 
-    public Integer getPostalCode() {
-        return postalCode;
-    }
-    public void setMobile(Integer postalCode) { this.postalCode = postalCode; }
+    public String getCity() {return city;}
 
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) { this.password = password; }
+    public String getProvince() {return province;}
+
+    public Integer getPostalCode() {return postalCode;}
+
+    public String getPassword() {return password;}
 
 }

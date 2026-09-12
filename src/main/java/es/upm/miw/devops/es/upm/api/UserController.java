@@ -4,8 +4,10 @@ import es.upm.miw.devops.es.upm.api.infrastructure.data.models.User;
 import es.upm.miw.devops.es.upm.api.services.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -19,5 +21,12 @@ public class UserController {
     @GetMapping("/users/{id}")
     public User findById(@PathVariable UUID id) {
         return userService.findById(id);
+    }
+
+    @GetMapping("/users")
+    public List<User> findByBillable(
+            @RequestParam(required = false) Boolean billable
+    ) {
+        return userService.findByBillable(billable);
     }
 }
