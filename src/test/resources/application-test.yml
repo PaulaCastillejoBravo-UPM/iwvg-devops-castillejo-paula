@@ -1,3 +1,9 @@
 logging:
   level:
     es.upm.miw: DEBUG
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/devopsDb
+    username: postgres
+    password: postgres

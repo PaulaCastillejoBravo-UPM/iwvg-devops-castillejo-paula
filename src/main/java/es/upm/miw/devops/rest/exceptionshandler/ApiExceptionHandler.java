@@ -1,5 +1,6 @@
 package es.upm.miw.devops.rest.exceptionshandler;
 
+import es.upm.miw.devops.es.upm.api.services.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,13 +15,13 @@ public class ApiExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({
             NoResourceFoundException.class,
-            ResponseStatusException.class
-
+            ResponseStatusException.class,
+            UserNotFoundException.class
     })
     @ResponseBody
     public ErrorMessage noResourceFoundRequest(Exception exception) {
-        return new ErrorMessage(new RuntimeException(
-                "Ruta no encontrada. Prueba con: **/actuator/info o **/swagger-ui.html o **/v3/api-docs o **/v3/api-docs.yaml"),
+        return new ErrorMessage(
+                exception,
                 HttpStatus.NOT_FOUND.value());
     }
 
