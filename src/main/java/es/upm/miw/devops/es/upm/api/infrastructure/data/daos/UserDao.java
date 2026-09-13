@@ -83,6 +83,24 @@ public class UserDao {
                     AND postal_code IS NOT NULL
                 ) = ?
                 """;
+
+            return jdbcTemplate.query(
+                    sql,
+                    (resultSet, rowNum) -> new User(
+                            resultSet.getObject("id", UUID.class),
+                            resultSet.getString("first_name"),
+                            resultSet.getString("family_name"),
+                            resultSet.getString("email"),
+                            resultSet.getString("mobile"),
+                            resultSet.getString("identity"),
+                            resultSet.getString("address"),
+                            resultSet.getString("city"),
+                            resultSet.getObject("postal_code", Integer.class),
+                            resultSet.getString("province"),
+                            resultSet.getString("password")
+                    ),
+                    billable
+            );
         }
 
         return jdbcTemplate.query(
@@ -99,8 +117,7 @@ public class UserDao {
                         resultSet.getObject("postal_code", Integer.class),
                         resultSet.getString("province"),
                         resultSet.getString("password")
-                ),
-                billable
+                )
         );
     }
 }

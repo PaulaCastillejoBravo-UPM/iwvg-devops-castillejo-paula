@@ -45,4 +45,22 @@ class UserResourceExceptionTest {
                 .jsonPath("$.message")
                 .isEqualTo("ERROR");
     }
+
+    @Test
+    void testFindByBillableInternalServerError() {
+        when(userService.findByBillable(true))
+                .thenThrow(new RuntimeException("Database error"));
+
+        webTestClient.get()
+                .uri("/users?billable=true")
+                .exchange()
+                .expectStatus().isEqualTo(500)
+                .expectBody()
+                .jsonPath("$.code")
+                .isEqualTo(500)
+                .jsonPath("$.error")
+                .isEqualTo("RuntimeException")
+                .jsonPath("$.message")
+                .isEqualTo("ERROR");
+    }
 }
