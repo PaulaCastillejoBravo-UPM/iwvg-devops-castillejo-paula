@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,7 +37,6 @@ class UserServiceTest {
         assertThat(user.getEmail()).isEqualTo("alice@example.com");
     }
 
-
     @Test
     void testFindByIdNotFound() {
         UUID userId = UUID.fromString(
@@ -45,5 +45,30 @@ class UserServiceTest {
 
         assertThatThrownBy(() -> userService.findById(userId))
                 .isInstanceOf(UserNotFoundException.class);
+    }
+
+    @Test
+    void testFindByBillableTrue() {
+        List<User> users = userService.findByBillable(true);
+
+        assertThat(users).hasSize(2);
+        assertThat(users)
+                .extracting(User::getFirstName)
+                .containsExactlyInAnyOrder("Alice", "Charlie");
+    }
+
+    @Test
+    void testFindByBillableFalse() {
+        List<User> users = userService.findByBillable(false);
+
+        assertThat(users).hasSize(1);
+        assertThat(users.get(0).getFirstName()).isEqualTo("Bob");
+    }
+
+    @Test
+    void testFindByBillableWithoutFilter() {
+        List<User> users = userService.findByBillable(null);
+
+        assertThat(users).hasSize(3);
     }
 }

@@ -47,4 +47,49 @@ class UserResourceFT {
                 .exchange()
                 .expectStatus().isBadRequest();
     }
+
+    @Test
+    void testFindByBillableTrue() {
+        webTestClient.get()
+                .uri("/users?billable=true")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.length()")
+                .isEqualTo(2);
+    }
+
+    @Test
+    void testFindByBillableFalse() {
+        webTestClient.get()
+                .uri("/users?billable=false")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.length()")
+                .isEqualTo(1)
+                .jsonPath("$[0].firstName")
+                .isEqualTo("Bob");
+    }
+
+    @Test
+    void testFindUsersWithoutBillableFilter() {
+        webTestClient.get()
+                .uri("/users")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.length()")
+                .isEqualTo(3);
+    }
+
+    @Test
+    void testFindByBillableBadRequest() {
+        webTestClient.get()
+                .uri("/users?billable=not-a-boolean")
+                .exchange()
+                .expectStatus().isBadRequest();
+    }
+
+
 }
