@@ -29,7 +29,8 @@ public class UserDao {
                     city,
                     postal_code,
                     province,
-                    password
+                    password,
+                    activate
                 FROM users
                 WHERE id = ?
                 """;
@@ -47,7 +48,8 @@ public class UserDao {
                         resultSet.getString("city"),
                         resultSet.getObject("postal_code", Integer.class),
                         resultSet.getString("province"),
-                        resultSet.getString("password")
+                        resultSet.getString("password"),
+                        resultSet.getBoolean("activate")
                 ),
                 id
         ).stream().findFirst().orElse(null);
@@ -66,7 +68,8 @@ public class UserDao {
                 city,
                 postal_code,
                 province,
-                password
+                password,
+                activate
             FROM users
             """;
 
@@ -97,7 +100,8 @@ public class UserDao {
                             resultSet.getString("city"),
                             resultSet.getObject("postal_code", Integer.class),
                             resultSet.getString("province"),
-                            resultSet.getString("password")
+                            resultSet.getString("password"),
+                            resultSet.getBoolean("activate")
                     ),
                     billable
             );
@@ -116,7 +120,8 @@ public class UserDao {
                         resultSet.getString("city"),
                         resultSet.getObject("postal_code", Integer.class),
                         resultSet.getString("province"),
-                        resultSet.getString("password")
+                        resultSet.getString("password"),
+                        resultSet.getBoolean("activate")
                 )
         );
     }
