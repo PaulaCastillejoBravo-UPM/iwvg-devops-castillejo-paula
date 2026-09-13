@@ -14,6 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import es.upm.miw.devops.es.upm.api.services.exceptions.UserNotFoundException;
+import es.upm.miw.devops.seeder.UserSeeder;
+import org.junit.jupiter.api.BeforeEach;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -21,6 +23,14 @@ class UserServiceTest {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserSeeder userSeeder;
+
+    @BeforeEach
+    void setUp() {
+        userSeeder.seed();
+    }
 
     @Test
     void testFindById() {
@@ -70,5 +80,27 @@ class UserServiceTest {
         List<User> users = userService.findByBillable(null);
 
         assertThat(users).hasSize(3);
+    }
+
+    @Test
+    void testDeleteById() {
+        UUID userId = UUID.fromString(
+                "33333333-3333-3333-3333-333333333333"
+        );
+
+        userService.deleteById(userId);
+
+        assertThatThrownBy(() -> userService.findById(userId))
+                .isInstanceOf(UserNotFoundException.class);
+    }
+
+    @Test
+    void testDeleteByIdNotFound() {
+        UUID userId = UUID.fromString(
+                "99999999-9999-9999-9999-999999999999"
+        );
+
+        assertThatThrownBy(() -> userService.deleteById(userId))
+                .isInstanceOf(UserNotFoundException.class);
     }
 }

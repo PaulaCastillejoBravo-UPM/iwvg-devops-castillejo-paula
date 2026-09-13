@@ -9,7 +9,8 @@ CREATE TABLE users (
    city VARCHAR(100),
    postal_code INTEGER,
    province VARCHAR(100),
-   password VARCHAR(255)
+   password VARCHAR(255),
+   activate BOOLEAN
 );
 
 INSERT INTO users (
@@ -23,7 +24,8 @@ INSERT INTO users (
     city,
     postal_code,
     province,
-    password
+    password,
+    activate
 ) VALUES
 (
   '11111111-1111-1111-1111-111111111111',
@@ -36,7 +38,8 @@ INSERT INTO users (
   'Madrid',
   28001,
   'Madrid',
-  'password'
+  'password',
+  true
 ),
 (
   '22222222-2222-2222-2222-222222222222',
@@ -49,7 +52,8 @@ INSERT INTO users (
   'Madrid',
   28002,
   NULL,
-  'password'
+  'password',
+  false
 ),
 (
   '33333333-3333-3333-3333-333333333333',
@@ -62,5 +66,6 @@ INSERT INTO users (
   'Madrid',
   28003,
   'Madrid',
-  'password'
+  'password',
+  false
 );

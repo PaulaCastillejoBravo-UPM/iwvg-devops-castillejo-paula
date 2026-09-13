@@ -34,7 +34,7 @@ class UserResourceExceptionTest {
                 .thenThrow(new RuntimeException("Database error"));
 
         webTestClient.get()
-                .uri("/users/11111111-1111-1111-1111-111111111111")
+                .uri("/user/11111111-1111-1111-1111-111111111111")
                 .exchange()
                 .expectStatus().isEqualTo(500)
                 .expectBody()
@@ -52,7 +52,7 @@ class UserResourceExceptionTest {
                 .thenThrow(new RuntimeException("Database error"));
 
         webTestClient.get()
-                .uri("/users?billable=true")
+                .uri("/user?billable=true")
                 .exchange()
                 .expectStatus().isEqualTo(500)
                 .expectBody()

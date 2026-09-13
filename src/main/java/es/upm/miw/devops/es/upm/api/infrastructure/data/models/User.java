@@ -18,6 +18,8 @@ public class User {
     private String province;
     private String password;
 
+    private Boolean activate;
+
     public User(
             UUID id,
             String firstName,
@@ -29,7 +31,8 @@ public class User {
             String city,
             Integer postalCode,
             String province,
-            String password
+            String password,
+            Boolean activate
     ) {
         this.id = id;
 
@@ -44,6 +47,8 @@ public class User {
         this.postalCode = postalCode;
         this.province = province;
         this.password = password;
+
+        this.activate = activate;
     }
 
     public UUID getId() {return id;}
@@ -68,4 +73,5 @@ public class User {
 
     public String getPassword() {return password;}
 
+    public Boolean getActivate() {return activate;}
 }

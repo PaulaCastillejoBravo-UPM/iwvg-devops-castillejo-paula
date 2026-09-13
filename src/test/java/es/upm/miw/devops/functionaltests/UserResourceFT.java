@@ -6,6 +6,8 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import es.upm.miw.devops.seeder.UserSeeder;
+import org.junit.jupiter.api.BeforeEach;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
@@ -15,10 +17,18 @@ class UserResourceFT {
     @Autowired
     private WebTestClient webTestClient;
 
+    @Autowired
+    private UserSeeder userSeeder;
+
+    @BeforeEach
+    void setUp() {
+        userSeeder.seed();
+    }
+
     @Test
     void testFindById() {
         webTestClient.get()
-                .uri("/users/11111111-1111-1111-1111-111111111111")
+                .uri("/user/11111111-1111-1111-1111-111111111111")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
@@ -35,7 +45,7 @@ class UserResourceFT {
     @Test
     void testFindByIdNotFound() {
         webTestClient.get()
-                .uri("/users/99999999-9999-9999-9999-999999999999")
+                .uri("/user/99999999-9999-9999-9999-999999999999")
                 .exchange()
                 .expectStatus().isNotFound();
     }
@@ -43,7 +53,7 @@ class UserResourceFT {
     @Test
     void testFindByIdBadRequest() {
         webTestClient.get()
-                .uri("/users/not-a-valid-uuid")
+                .uri("/user/not-a-valid-uuid")
                 .exchange()
                 .expectStatus().isBadRequest();
     }
@@ -51,7 +61,7 @@ class UserResourceFT {
     @Test
     void testFindByBillableTrue() {
         webTestClient.get()
-                .uri("/users?billable=true")
+                .uri("/user?billable=true")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
@@ -62,7 +72,7 @@ class UserResourceFT {
     @Test
     void testFindByBillableFalse() {
         webTestClient.get()
-                .uri("/users?billable=false")
+                .uri("/user?billable=false")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
@@ -75,7 +85,7 @@ class UserResourceFT {
     @Test
     void testFindUsersWithoutBillableFilter() {
         webTestClient.get()
-                .uri("/users")
+                .uri("/user")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
@@ -86,10 +96,24 @@ class UserResourceFT {
     @Test
     void testFindByBillableBadRequest() {
         webTestClient.get()
-                .uri("/users?billable=not-a-boolean")
+                .uri("/user?billable=not-a-boolean")
                 .exchange()
                 .expectStatus().isBadRequest();
     }
 
+    @Test
+    void testDeleteById() {
+        webTestClient.delete()
+                .uri("/user/33333333-3333-3333-3333-333333333333")
+                .exchange()
+                .expectStatus().isOk();
+    }
 
+    @Test
+    void testDeleteByIdNotFound() {
+        webTestClient.delete()
+                .uri("/user/99999999-9999-9999-9999-999999999999")
+                .exchange()
+                .expectStatus().isNotFound();
+    }
 }
