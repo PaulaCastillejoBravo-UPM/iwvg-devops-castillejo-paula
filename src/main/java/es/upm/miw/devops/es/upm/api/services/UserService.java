@@ -29,4 +29,14 @@ public class UserService {
     public List<User> findByBillable(Boolean billable) {
         return userDao.findByBillable(billable);
     }
+
+    public void deleteById(UUID id) {
+        User user = userDao.findById(id);
+
+        if (user == null) {
+            throw new UserNotFoundException(id);
+        }
+
+        userDao.deleteById(id);
+    }
 }

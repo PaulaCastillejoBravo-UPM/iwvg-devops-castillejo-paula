@@ -120,4 +120,13 @@ public class UserDao {
                 )
         );
     }
+
+    public void deleteById(UUID id) {
+        String sql = """
+            DELETE FROM users
+            WHERE id = ?
+            """;
+
+        jdbcTemplate.update(sql, id);
+    }
 }
