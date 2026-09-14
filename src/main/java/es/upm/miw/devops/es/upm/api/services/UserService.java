@@ -39,4 +39,16 @@ public class UserService {
 
         userDao.deleteById(id);
     }
+
+    public User updateActive(UUID id, Boolean active) {
+        User user = userDao.findById(id);
+
+        if (user == null) {
+            throw new UserNotFoundException(id);
+        }
+
+        userDao.updateActive(id, active);
+
+        return userDao.findById(id);
+    }
 }
