@@ -63,4 +63,27 @@ class UserResourceExceptionTest {
                 .jsonPath("$.message")
                 .isEqualTo("ERROR");
     }
+
+    @Test
+    void testUpdateActiveInternalServerError() {
+        UUID userId = UUID.fromString(
+                "11111111-1111-1111-1111-111111111111"
+        );
+
+        when(userService.updateActive(userId, true))
+                .thenThrow(new RuntimeException("Database error"));
+
+        webTestClient.put()
+                .uri("/user/11111111-1111-1111-1111-111111111111/active")
+                .bodyValue(true)
+                .exchange()
+                .expectStatus().isEqualTo(500)
+                .expectBody()
+                .jsonPath("$.code")
+                .isEqualTo(500)
+                .jsonPath("$.error")
+                .isEqualTo("RuntimeException")
+                .jsonPath("$.message")
+                .isEqualTo("ERROR");
+    }
 }
