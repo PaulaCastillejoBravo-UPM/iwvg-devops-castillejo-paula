@@ -39,4 +39,12 @@ public class UserController {
     ) {
         return userService.updateActive(id, active);
     }
+
+    @PutMapping("/user/{id}")
+    public User updateById(
+            @PathVariable UUID id,
+            @RequestBody User user
+    ) {
+        return userService.updateById(id, user);
+    }
 }

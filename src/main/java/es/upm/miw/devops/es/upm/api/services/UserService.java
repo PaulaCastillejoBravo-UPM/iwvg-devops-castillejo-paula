@@ -51,4 +51,16 @@ public class UserService {
 
         return userDao.findById(id);
     }
+
+    public User updateById(UUID id, User user) {
+        User existingUser = userDao.findById(id);
+
+        if (existingUser == null) {
+            throw new UserNotFoundException(id);
+        }
+
+        userDao.updateById(id, user);
+
+        return userDao.findById(id);
+    }
 }
