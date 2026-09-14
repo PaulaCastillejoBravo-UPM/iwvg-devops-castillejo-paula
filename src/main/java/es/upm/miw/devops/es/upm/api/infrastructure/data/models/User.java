@@ -18,7 +18,7 @@ public class User {
     private String province;
     private String password;
 
-    private Boolean activate;
+    private Boolean active;
 
     public User(
             UUID id,
@@ -32,7 +32,7 @@ public class User {
             Integer postalCode,
             String province,
             String password,
-            Boolean activate
+            Boolean active
     ) {
         this.id = id;
 
@@ -48,7 +48,7 @@ public class User {
         this.province = province;
         this.password = password;
 
-        this.activate = activate;
+        this.active = active;
     }
 
     public UUID getId() {return id;}
@@ -57,21 +57,19 @@ public class User {
 
     public String getFamilyName() {return familyName;}
 
-    public String getMobile() {return mobile;}
-
     public String getEmail() {return email;}
 
-    public String getIdentity() {return identity;}
+    public String getIdentity() { return identity; }
 
-    public String getAddress() {return address;}
+    public String getAddress() { return address; }
 
-    public String getCity() {return city;}
+    public String getCity() { return city; }
 
-    public String getProvince() {return province;}
+    public Integer getPostalCode() { return postalCode; }
 
-    public Integer getPostalCode() {return postalCode;}
+    public String getProvince() { return province; }
 
-    public String getPassword() {return password;}
+    public String getPassword() { return password; }
 
-    public Boolean getActivate() {return activate;}
+    public Boolean getActive() { return active; }
 }

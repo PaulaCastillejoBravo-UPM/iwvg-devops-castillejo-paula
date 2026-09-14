@@ -31,4 +31,12 @@ public class UserController {
     public void deleteById(@PathVariable UUID id) {
         userService.deleteById(id);
     }
+
+    @PutMapping("/user/{id}/active")
+    public User updateActive(
+            @PathVariable UUID id,
+            @RequestBody Boolean active
+    ) {
+        return userService.updateActive(id, active);
+    }
 }

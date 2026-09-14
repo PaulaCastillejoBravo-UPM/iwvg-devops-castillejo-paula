@@ -10,7 +10,7 @@ CREATE TABLE users (
    postal_code INTEGER,
    province VARCHAR(100),
    password VARCHAR(255),
-   activate BOOLEAN
+   active BOOLEAN
 );
 
 INSERT INTO users (
@@ -25,7 +25,7 @@ INSERT INTO users (
     postal_code,
     province,
     password,
-    activate
+    active
 ) VALUES
 (
   '11111111-1111-1111-1111-111111111111',
