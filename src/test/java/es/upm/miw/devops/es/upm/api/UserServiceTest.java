@@ -103,4 +103,40 @@ class UserServiceTest {
         assertThatThrownBy(() -> userService.deleteById(userId))
                 .isInstanceOf(UserNotFoundException.class);
     }
+
+    @Test
+    void testUpdateActiveTrue() {
+        UUID userId = UUID.fromString(
+                "11111111-1111-1111-1111-111111111111"
+        );
+
+        User user = userService.updateActive(userId, true);
+
+        assertThat(user).isNotNull();
+        assertThat(user.getId()).isEqualTo(userId);
+        assertThat(user.getActive()).isTrue();
+    }
+
+    @Test
+    void testUpdateActiveFalse() {
+        UUID userId = UUID.fromString(
+                "11111111-1111-1111-1111-111111111111"
+        );
+
+        User user = userService.updateActive(userId, false);
+
+        assertThat(user).isNotNull();
+        assertThat(user.getId()).isEqualTo(userId);
+        assertThat(user.getActive()).isFalse();
+    }
+
+    @Test
+    void testUpdateActiveNotFound() {
+        UUID userId = UUID.fromString(
+                "99999999-9999-9999-9999-999999999999"
+        );
+
+        assertThatThrownBy(() -> userService.updateActive(userId, true))
+                .isInstanceOf(UserNotFoundException.class);
+    }
 }
