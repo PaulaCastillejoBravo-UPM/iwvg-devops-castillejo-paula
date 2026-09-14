@@ -30,7 +30,7 @@ public class UserDao {
                     postal_code,
                     province,
                     password,
-                    activate
+                    active
                 FROM users
                 WHERE id = ?
                 """;
@@ -49,7 +49,7 @@ public class UserDao {
                         resultSet.getObject("postal_code", Integer.class),
                         resultSet.getString("province"),
                         resultSet.getString("password"),
-                        resultSet.getBoolean("activate")
+                        resultSet.getBoolean("active")
                 ),
                 id
         ).stream().findFirst().orElse(null);
@@ -69,7 +69,7 @@ public class UserDao {
                 postal_code,
                 province,
                 password,
-                activate
+                active
             FROM users
             """;
 
@@ -101,7 +101,7 @@ public class UserDao {
                             resultSet.getObject("postal_code", Integer.class),
                             resultSet.getString("province"),
                             resultSet.getString("password"),
-                            resultSet.getBoolean("activate")
+                            resultSet.getBoolean("active")
                     ),
                     billable
             );
@@ -121,7 +121,7 @@ public class UserDao {
                         resultSet.getObject("postal_code", Integer.class),
                         resultSet.getString("province"),
                         resultSet.getString("password"),
-                        resultSet.getBoolean("activate")
+                        resultSet.getBoolean("active")
                 )
         );
     }
@@ -133,5 +133,15 @@ public class UserDao {
             """;
 
         jdbcTemplate.update(sql, id);
+    }
+
+    public void updateActive(UUID id, Boolean active) {
+        String sql = """
+            UPDATE users
+            SET active = ?
+            WHERE id = ?
+            """;
+
+        jdbcTemplate.update(sql, active, id);
     }
 }
