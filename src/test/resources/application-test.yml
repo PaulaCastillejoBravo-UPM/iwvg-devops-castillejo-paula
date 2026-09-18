@@ -7,3 +7,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/devopsdb_umn6
     username: devopsdb_umn6_user
     password: devopsdb_umn6_user
+  jpa:
+    hibernate:
+      ddl-auto: create

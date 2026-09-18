@@ -2,9 +2,11 @@ package es.upm.miw.devops.es.upm.api.services;
 
 import es.upm.miw.devops.es.upm.api.infrastructure.data.daos.UserDao;
 import es.upm.miw.devops.es.upm.api.infrastructure.data.models.User;
+import es.upm.miw.devops.es.upm.api.infrastructure.data.models.UserActiveUpdate;
 import es.upm.miw.devops.es.upm.api.services.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -62,5 +64,23 @@ public class UserService {
         userDao.updateById(id, user);
 
         return userDao.findById(id);
+    }
+
+    public List<User> updateActive(List<UserActiveUpdate> users) {
+        List<User> updatedUsers = new ArrayList<>();
+
+        for (UserActiveUpdate user : users) {
+            User existingUser = userDao.findById(user.getId());
+
+            if (existingUser == null) {
+                throw new UserNotFoundException(user.getId());
+            }
+
+            userDao.updateActive(user.getId(), user.getActive());
+
+            updatedUsers.add(userDao.findById(user.getId()));
+        }
+
+        return updatedUsers;
     }
 }
