@@ -1,4 +1,4 @@
-package es.upm.miw.devops.seeder;
+package es.upm.miw.devops;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -21,7 +21,6 @@ public class UserSeeder implements CommandLineRunner {
     }
 
     public void seed() {
-        jdbcTemplate.update("DELETE FROM users");
 
         jdbcTemplate.update("""
             INSERT INTO users (
@@ -53,6 +52,7 @@ public class UserSeeder implements CommandLineRunner {
                 false,
                 'CUSTOMER'
             )
+            ON CONFLICT (id) DO NOTHING;
             """);
 
         jdbcTemplate.update("""
@@ -85,6 +85,7 @@ public class UserSeeder implements CommandLineRunner {
                 false,
                 'OPERATOR'
             )
+            ON CONFLICT (id) DO NOTHING;
             """);
 
         jdbcTemplate.update("""
@@ -117,6 +118,7 @@ public class UserSeeder implements CommandLineRunner {
                 false,
                 'ADMIN'
             )
+            ON CONFLICT (id) DO NOTHING;
             """);
     }
 }

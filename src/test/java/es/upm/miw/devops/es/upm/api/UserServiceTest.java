@@ -17,11 +17,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import es.upm.miw.devops.es.upm.api.services.exceptions.UserNotFoundException;
-import es.upm.miw.devops.seeder.UserSeeder;
+import es.upm.miw.devops.UserSeeder;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@Transactional
 class UserServiceTest {
 
     @Autowired
