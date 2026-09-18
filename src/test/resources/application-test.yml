@@ -4,6 +4,6 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/devopsDb
+    url: jdbc:postgresql://localhost:5432/devopsdb
     username: postgres
     password: postgres
