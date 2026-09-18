@@ -15,13 +15,13 @@ jobs:
       postgres:
         image: postgres:15.10
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: devopsdb
+          POSTGRES_USER: devopsdb_umn6_user
+          POSTGRES_PASSWORD: devopsdb_umn6_user
+          POSTGRES_DB: devopsdb_umn6
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U postgres -d devopsdb"
+          --health-cmd "pg_isready -U devopsdb_umn6_user -d devopsdb_umn6"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -51,7 +51,7 @@ jobs:
       - name: Seed database
         run: |
           docker exec -i $(docker ps -q --filter "ancestor=postgres:15.10") \
-            psql -U postgres -d devopsdb < ddbb/init/users.sql
+            psql -U devopsdb_umn6_user -d devopsdb_umn6 < ddbb/init/users.sql
 
       - name: Run Unit & Integration Test & Functional Test
         run: mvn -B verify
