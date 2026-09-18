@@ -57,6 +57,8 @@ public class User {
 
     public String getFamilyName() {return familyName;}
 
+    public String getMobile() {return mobile;}
+
     public String getEmail() {return email;}
 
     public String getIdentity() { return identity; }

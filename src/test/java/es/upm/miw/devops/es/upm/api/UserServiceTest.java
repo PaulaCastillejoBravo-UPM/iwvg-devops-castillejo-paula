@@ -139,4 +139,63 @@ class UserServiceTest {
         assertThatThrownBy(() -> userService.updateActive(userId, true))
                 .isInstanceOf(UserNotFoundException.class);
     }
+
+    @Test
+    void testUpdateById() {
+        UUID userId = UUID.fromString("33333333-3333-3333-3333-333333333333");
+
+        User user = new User(
+                userId,
+                "Charlie Updated",
+                "Brown",
+                "charlie.updated@example.com",
+                "600999999",
+                "87654321B",
+                "Calle Nueva 10",
+                "Madrid",
+                28010,
+                "Madrid",
+                "newpassword",
+                true
+        );
+
+        User updatedUser = userService.updateById(userId, user);
+
+        assertThat(updatedUser).isNotNull();
+        assertThat(updatedUser.getId()).isEqualTo(userId);
+        assertThat(updatedUser.getFirstName()).isEqualTo("Charlie Updated");
+        assertThat(updatedUser.getFamilyName()).isEqualTo("Brown");
+        assertThat(updatedUser.getEmail()).isEqualTo("charlie.updated@example.com");
+        assertThat(updatedUser.getMobile()).isEqualTo("600999999");
+        assertThat(updatedUser.getIdentity()).isEqualTo("87654321B");
+        assertThat(updatedUser.getAddress()).isEqualTo("Calle Nueva 10");
+        assertThat(updatedUser.getCity()).isEqualTo("Madrid");
+        assertThat(updatedUser.getPostalCode()).isEqualTo(28010);
+        assertThat(updatedUser.getProvince()).isEqualTo("Madrid");
+        assertThat(updatedUser.getPassword()).isEqualTo("newpassword");
+        assertThat(updatedUser.getActive()).isTrue();
+    }
+
+    @Test
+    void testUpdateByIdNotFound() {
+        UUID userId = UUID.fromString("99999999-9999-9999-9999-999999999999");
+
+        User user = new User(
+                userId,
+                "Test",
+                "User",
+                "test@example.com",
+                "600000000",
+                "12345678A",
+                "Calle Test 1",
+                "Madrid",
+                28001,
+                "Madrid",
+                "password",
+                true
+        );
+
+        assertThatThrownBy(() -> userService.updateById(userId, user))
+                .isInstanceOf(UserNotFoundException.class);
+    }
 }
