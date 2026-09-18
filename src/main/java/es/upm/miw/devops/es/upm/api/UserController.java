@@ -1,6 +1,7 @@
 package es.upm.miw.devops.es.upm.api;
 
 import es.upm.miw.devops.es.upm.api.infrastructure.data.models.User;
+import es.upm.miw.devops.es.upm.api.infrastructure.data.models.UserActiveUpdate;
 import es.upm.miw.devops.es.upm.api.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,5 +47,12 @@ public class UserController {
             @RequestBody User user
     ) {
         return userService.updateById(id, user);
+    }
+
+    @PatchMapping("/user")
+    public List<User> updateActive(
+            @RequestBody List<UserActiveUpdate> users
+    ) {
+        return userService.updateActive(users);
     }
 }

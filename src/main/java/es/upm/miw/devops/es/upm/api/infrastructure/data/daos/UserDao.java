@@ -1,5 +1,6 @@
 package es.upm.miw.devops.es.upm.api.infrastructure.data.daos;
 
+import es.upm.miw.devops.es.upm.api.infrastructure.data.models.Role;
 import es.upm.miw.devops.es.upm.api.infrastructure.data.models.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -22,7 +23,8 @@ public class UserDao {
             postal_code,
             province,
             password,
-            active
+            active,
+            role
             """;
 
     private final JdbcTemplate jdbcTemplate;
@@ -102,7 +104,8 @@ public class UserDao {
                     postal_code = ?,
                     province = ?,
                     password = ?,
-                    active = ?
+                    active = ?,
+                    role = ?
                 WHERE id = ?
                 """;
 
@@ -119,6 +122,7 @@ public class UserDao {
                 user.getProvince(),
                 user.getPassword(),
                 user.getActive(),
+                user.getRole().name(),
                 id
         );
     }
@@ -136,7 +140,8 @@ public class UserDao {
                 resultSet.getObject("postal_code", Integer.class),
                 resultSet.getString("province"),
                 resultSet.getString("password"),
-                resultSet.getBoolean("active")
+                resultSet.getBoolean("active"),
+                Role.valueOf(resultSet.getString("role"))
         );
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import es.upm.miw.devops.seeder.UserSeeder;
+import es.upm.miw.devops.UserSeeder;
 import org.junit.jupiter.api.BeforeEach;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -181,7 +181,8 @@ class UserResourceFT {
                         "postalCode": 28010,
                         "province": "Madrid",
                         "password": "newpassword",
-                        "active": true
+                        "active": true,
+                        "role": "ADMIN"
                     }
                     """)
                 .exchange()
@@ -210,7 +211,9 @@ class UserResourceFT {
                 .jsonPath("$.password")
                 .isEqualTo("newpassword")
                 .jsonPath("$.active")
-                .isEqualTo(true);
+                .isEqualTo(true)
+                .jsonPath("$.role")
+                .isEqualTo("ADMIN");
     }
 
     @Test
@@ -258,5 +261,54 @@ class UserResourceFT {
                     """)
                 .exchange()
                 .expectStatus().isBadRequest();
+    }
+
+    @Test
+    void testUpdateActiveList() {
+        webTestClient.patch()
+                .uri("/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue("""
+                [
+                    {
+                        "id": "11111111-1111-1111-1111-111111111111",
+                        "active": true
+                    },
+                    {
+                        "id": "22222222-2222-2222-2222-222222222222",
+                        "active": true
+                    }
+                ]
+                """)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.length()")
+                .isEqualTo(2)
+                .jsonPath("$[0].id")
+                .isEqualTo("11111111-1111-1111-1111-111111111111")
+                .jsonPath("$[0].active")
+                .isEqualTo(true)
+                .jsonPath("$[1].id")
+                .isEqualTo("22222222-2222-2222-2222-222222222222")
+                .jsonPath("$[1].active")
+                .isEqualTo(true);
+    }
+
+    @Test
+    void testUpdateActiveListNotFound() {
+        webTestClient.patch()
+                .uri("/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue("""
+                [
+                    {
+                        "id": "99999999-9999-9999-9999-999999999999",
+                        "active": true
+                    }
+                ]
+                """)
+                .exchange()
+                .expectStatus().isNotFound();
     }
 }
