@@ -5,14 +5,13 @@ services:
     container_name: postgres-server
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: devopsDb
+      POSTGRES_USER: devopsdb_umn6_user
+      POSTGRES_PASSWORD: devopsdb_umn6_user
+      POSTGRES_DB: devopsdb_umn6
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./ddbb/init:/docker-entrypoint-initdb.d
     networks:
       - devopsNet
 
@@ -28,7 +27,7 @@ networks:
 #> docker compose -f docker-compose-db.yml -p databases up -d
 
 # CONSOLA & COMANDOS Postgres
-#> docker exec -it postgres-server  psql -U postgres
+#> docker exec -it postgres-server  psql -U devopsdb_umn6_user
 #  \?   Help
 #  \l   Database list
 #  \connect <db> <usr>

@@ -1,9 +1,16 @@
 package es.upm.miw.devops.es.upm.api.infrastructure.data.models;
 
+import jakarta.persistence.*;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+
 import java.util.UUID;
 
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
     private UUID id;
 
     private String firstName;
@@ -20,6 +27,9 @@ public class User {
 
     private Boolean active;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     public User(
             UUID id,
             String firstName,
@@ -32,7 +42,8 @@ public class User {
             Integer postalCode,
             String province,
             String password,
-            Boolean active
+            Boolean active,
+            Role role
     ) {
         this.id = id;
 
@@ -49,15 +60,19 @@ public class User {
         this.password = password;
 
         this.active = active;
+
+        this.role = role;
     }
 
-    public UUID getId() {return id;}
+    public UUID getId() { return id; }
 
-    public String getFirstName() {return firstName;}
+    public String getFirstName() { return firstName; }
 
-    public String getFamilyName() {return familyName;}
+    public String getFamilyName() { return familyName; }
 
-    public String getEmail() {return email;}
+    public String getMobile() { return mobile; }
+
+    public String getEmail() { return email; }
 
     public String getIdentity() { return identity; }
 
@@ -72,4 +87,6 @@ public class User {
     public String getPassword() { return password; }
 
     public Boolean getActive() { return active; }
+
+    public Role getRole() { return role; }
 }

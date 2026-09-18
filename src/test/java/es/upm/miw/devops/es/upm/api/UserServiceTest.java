@@ -1,6 +1,7 @@
 package es.upm.miw.devops.es.upm.api;
 
 import es.upm.miw.devops.es.upm.api.infrastructure.data.models.User;
+import es.upm.miw.devops.es.upm.api.infrastructure.data.models.UserActiveUpdate;
 import es.upm.miw.devops.es.upm.api.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +11,19 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.List;
 import java.util.UUID;
 
+import static es.upm.miw.devops.es.upm.api.infrastructure.data.models.Role.ADMIN;
+import static es.upm.miw.devops.es.upm.api.infrastructure.data.models.Role.CUSTOMER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import es.upm.miw.devops.es.upm.api.services.exceptions.UserNotFoundException;
-import es.upm.miw.devops.seeder.UserSeeder;
+import es.upm.miw.devops.UserSeeder;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@Transactional
 class UserServiceTest {
 
     @Autowired
@@ -72,7 +77,7 @@ class UserServiceTest {
         List<User> users = userService.findByBillable(false);
 
         assertThat(users).hasSize(1);
-        assertThat(users.get(0).getFirstName()).isEqualTo("Bob");
+        assertThat(users.getFirst().getFirstName()).isEqualTo("Bob");
     }
 
     @Test
@@ -137,6 +142,110 @@ class UserServiceTest {
         );
 
         assertThatThrownBy(() -> userService.updateActive(userId, true))
+                .isInstanceOf(UserNotFoundException.class);
+    }
+
+    @Test
+    void testUpdateById() {
+        UUID userId = UUID.fromString("33333333-3333-3333-3333-333333333333");
+
+        User user = new User(
+                userId,
+                "Charlie Updated",
+                "Brown",
+                "charlie.updated@example.com",
+                "600999999",
+                "87654321B",
+                "Calle Nueva 10",
+                "Madrid",
+                28010,
+                "Madrid",
+                "newpassword",
+                true,
+                ADMIN
+        );
+
+        User updatedUser = userService.updateById(userId, user);
+
+        assertThat(updatedUser).isNotNull();
+        assertThat(updatedUser.getId()).isEqualTo(userId);
+        assertThat(updatedUser.getFirstName()).isEqualTo("Charlie Updated");
+        assertThat(updatedUser.getFamilyName()).isEqualTo("Brown");
+        assertThat(updatedUser.getEmail()).isEqualTo("charlie.updated@example.com");
+        assertThat(updatedUser.getMobile()).isEqualTo("600999999");
+        assertThat(updatedUser.getIdentity()).isEqualTo("87654321B");
+        assertThat(updatedUser.getAddress()).isEqualTo("Calle Nueva 10");
+        assertThat(updatedUser.getCity()).isEqualTo("Madrid");
+        assertThat(updatedUser.getPostalCode()).isEqualTo(28010);
+        assertThat(updatedUser.getProvince()).isEqualTo("Madrid");
+        assertThat(updatedUser.getPassword()).isEqualTo("newpassword");
+        assertThat(updatedUser.getActive()).isTrue();
+        assertThat(updatedUser.getRole()).isEqualTo(ADMIN);
+    }
+
+    @Test
+    void testUpdateByIdNotFound() {
+        UUID userId = UUID.fromString("99999999-9999-9999-9999-999999999999");
+
+        User user = new User(
+                userId,
+                "Test",
+                "User",
+                "test@example.com",
+                "600000000",
+                "12345678A",
+                "Calle Test 1",
+                "Madrid",
+                28001,
+                "Madrid",
+                "password",
+                true,
+                CUSTOMER
+        );
+
+        assertThatThrownBy(() -> userService.updateById(userId, user))
+                .isInstanceOf(UserNotFoundException.class);
+    }
+
+    @Test
+    void testUpdateActiveList() {
+        List<UserActiveUpdate> users = List.of(
+                new UserActiveUpdate(
+                        UUID.fromString("11111111-1111-1111-1111-111111111111"),
+                        true
+                ),
+                new UserActiveUpdate(
+                        UUID.fromString("22222222-2222-2222-2222-222222222222"),
+                        true
+                )
+        );
+
+        List<User> updatedUsers = userService.updateActive(users);
+
+        assertThat(updatedUsers).hasSize(2);
+
+        assertThat(updatedUsers)
+                .extracting(User::getId)
+                .containsExactlyInAnyOrder(
+                        UUID.fromString("11111111-1111-1111-1111-111111111111"),
+                        UUID.fromString("22222222-2222-2222-2222-222222222222")
+                );
+
+        assertThat(updatedUsers)
+                .extracting(User::getActive)
+                .containsOnly(true);
+    }
+
+    @Test
+    void testUpdateActiveListNotFound() {
+        List<UserActiveUpdate> users = List.of(
+                new UserActiveUpdate(
+                        UUID.fromString("99999999-9999-9999-9999-999999999999"),
+                        true
+                )
+        );
+
+        assertThatThrownBy(() -> userService.updateActive(users))
                 .isInstanceOf(UserNotFoundException.class);
     }
 }
