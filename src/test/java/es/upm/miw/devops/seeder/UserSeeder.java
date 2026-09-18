@@ -1,15 +1,23 @@
 package es.upm.miw.devops.seeder;
 
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+@Profile({"dev", "pre", "prop", "test"})
 @Component
-public class UserSeeder {
+public class UserSeeder implements CommandLineRunner {
 
     private final JdbcTemplate jdbcTemplate;
 
     public UserSeeder(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    @Override
+    public void run(String... args) {
+        seed();
     }
 
     public void seed() {
@@ -28,7 +36,8 @@ public class UserSeeder {
                 postal_code,
                 province,
                 password,
-                active
+                active,
+                role
             ) VALUES (
                 '11111111-1111-1111-1111-111111111111',
                 'Alice',
@@ -41,7 +50,8 @@ public class UserSeeder {
                 28001,
                 'Madrid',
                 'password',
-                false
+                false,
+                'CUSTOMER'
             )
             """);
 
@@ -58,7 +68,8 @@ public class UserSeeder {
                 postal_code,
                 province,
                 password,
-                active
+                active,
+                role
             ) VALUES (
                 '22222222-2222-2222-2222-222222222222',
                 'Bob',
@@ -71,7 +82,8 @@ public class UserSeeder {
                 28002,
                 NULL,
                 'password',
-                false
+                false,
+                'OPERATOR'
             )
             """);
 
@@ -88,7 +100,8 @@ public class UserSeeder {
                 postal_code,
                 province,
                 password,
-                active
+                active,
+                role
             ) VALUES (
                 '33333333-3333-3333-3333-333333333333',
                 'Charlie',
@@ -101,7 +114,8 @@ public class UserSeeder {
                 28003,
                 'Madrid',
                 'password',
-                false
+                false,
+                'ADMIN'
             )
             """);
     }
