@@ -44,3 +44,12 @@ jobs:
           tags: |
             ghcr.io/${{ env.REPOSITORY }}:${{ env.VERSION }}
             ghcr.io/${{ env.REPOSITORY }}:latest
+
+      - name: 🚀 Deploy on Render
+        run: |
+          curl --fail -X POST "${{ secrets.RENDER_DEPLOY_HOOK_TOKEN }}" \
+          && echo "✅ Deployment succeeded" \
+          || (echo "❌ Deployment failed" && exit 1)
+
+          echo "✅ Deployment succeded"
+          docker image prune --filter "until=12h" -f
