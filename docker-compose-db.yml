@@ -5,9 +5,9 @@ services:
     container_name: postgres-server
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: devopsdb
+      POSTGRES_USER: devopsdb_umn6_user
+      POSTGRES_PASSWORD: devopsdb_umn6_user
+      POSTGRES_DB: devopsdb_umn6
     ports:
       - "5432:5432"
     volumes:
