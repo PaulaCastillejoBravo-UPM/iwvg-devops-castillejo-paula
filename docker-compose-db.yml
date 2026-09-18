@@ -28,7 +28,7 @@ networks:
 #> docker compose -f docker-compose-db.yml -p databases up -d
 
 # CONSOLA & COMANDOS Postgres
-#> docker exec -it postgres-server  psql -U postgres
+#> docker exec -it postgres-server  psql -U devopsdb_umn6_user
 #  \?   Help
 #  \l   Database list
 #  \connect <db> <usr>
