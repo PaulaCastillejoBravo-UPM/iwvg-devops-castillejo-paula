@@ -2,6 +2,7 @@ package es.upm.miw.devops.es.upm.api;
 
 import es.upm.miw.devops.es.upm.api.infrastructure.data.models.User;
 import es.upm.miw.devops.es.upm.api.infrastructure.data.models.UserActiveUpdate;
+import es.upm.miw.devops.es.upm.api.resources.dtos.UserUpdateDto;
 import es.upm.miw.devops.es.upm.api.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,8 +150,7 @@ class UserServiceTest {
     void testUpdateById() {
         UUID userId = UUID.fromString("33333333-3333-3333-3333-333333333333");
 
-        User user = new User(
-                userId,
+        UserUpdateDto user = new UserUpdateDto(
                 "Charlie Updated",
                 "Brown",
                 "charlie.updated@example.com",
@@ -187,8 +187,7 @@ class UserServiceTest {
     void testUpdateByIdNotFound() {
         UUID userId = UUID.fromString("99999999-9999-9999-9999-999999999999");
 
-        User user = new User(
-                userId,
+        UserUpdateDto user = new UserUpdateDto(
                 "Test",
                 "User",
                 "test@example.com",

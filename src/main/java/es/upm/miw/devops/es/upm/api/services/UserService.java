@@ -3,6 +3,7 @@ package es.upm.miw.devops.es.upm.api.services;
 import es.upm.miw.devops.es.upm.api.infrastructure.data.daos.UserDao;
 import es.upm.miw.devops.es.upm.api.infrastructure.data.models.User;
 import es.upm.miw.devops.es.upm.api.infrastructure.data.models.UserActiveUpdate;
+import es.upm.miw.devops.es.upm.api.resources.dtos.UserUpdateDto;
 import es.upm.miw.devops.es.upm.api.services.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +55,7 @@ public class UserService {
         return userDao.findById(id);
     }
 
-    public User updateById(UUID id, User user) {
+    public User updateById(UUID id, UserUpdateDto user) {
         User existingUser = userDao.findById(id);
 
         if (existingUser == null) {
