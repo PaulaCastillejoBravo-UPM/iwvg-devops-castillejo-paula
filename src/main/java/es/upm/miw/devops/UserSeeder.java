@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-@Profile({"dev", "pre", "prop", "test"})
+@Profile({"dev", "pre", "prod", "test"})
 @Component
 public class UserSeeder implements CommandLineRunner {
 
