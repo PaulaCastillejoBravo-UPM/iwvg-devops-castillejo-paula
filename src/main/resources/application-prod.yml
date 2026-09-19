@@ -1,2 +1,23 @@
-server:
-  port: 10000
+logging:
+  level:
+    root: WARN
+    es.upm.api: INFO
+
+springdoc:
+  api-docs:
+    enabled: true # Disable for delivery. false
+  swagger-ui:
+    enabled: true # Disable for delivery. false
+
+app:
+  hosting: AWS
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://devopsdb_umn6_user:6kYaMiGPFcyVsFMdEc5os73N6py0jAvo@dpg-damlktek1f9s739h6ob0-a/devopsdb_umn6
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}

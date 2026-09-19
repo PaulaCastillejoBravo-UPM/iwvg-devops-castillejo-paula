@@ -2,6 +2,7 @@ package es.upm.miw.devops.es.upm.api.infrastructure.data.daos;
 
 import es.upm.miw.devops.es.upm.api.infrastructure.data.models.Role;
 import es.upm.miw.devops.es.upm.api.infrastructure.data.models.User;
+import es.upm.miw.devops.es.upm.api.resources.dtos.UserUpdateDto;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -91,7 +92,7 @@ public class UserDao {
         jdbcTemplate.update(sql, active, id);
     }
 
-    public void updateById(UUID id, User user) {
+    public void updateById(UUID id, UserUpdateDto user) {
         String sql = """
                 UPDATE users
                 SET first_name = ?,
