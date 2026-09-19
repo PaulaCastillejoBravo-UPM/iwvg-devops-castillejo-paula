@@ -112,18 +112,18 @@ public class UserDao {
 
         jdbcTemplate.update(
                 sql,
-                user.getFirstName(),
-                user.getFamilyName(),
-                user.getEmail(),
-                user.getMobile(),
-                user.getIdentity(),
-                user.getAddress(),
-                user.getCity(),
-                user.getPostalCode(),
-                user.getProvince(),
-                user.getPassword(),
-                user.getActive(),
-                user.getRole().name(),
+                user.firstName(),
+                user.familyName(),
+                user.email(),
+                user.mobile(),
+                user.identity(),
+                user.address(),
+                user.city(),
+                user.postalCode(),
+                user.province(),
+                user.password(),
+                user.active(),
+                user.role().name(),
                 id
         );
     }
