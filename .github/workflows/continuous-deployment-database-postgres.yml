@@ -17,13 +17,13 @@ jobs:
           username: ${{ secrets.AWS_LIGHTSAIL_USER_MAIN }}
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY_MAIN }}
           script: |
-            docker rm -f postgres || true
+            docker rm -f devopsdb_umn6 || true
             docker network create devops || true
             docker run -d \
-              --name postgres \
+              --name devopsdb_umn6 \
               --restart always \
               --network devops \
               -e POSTGRES_USER=${{ secrets.POSTGRES_USER }} \
               -e POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
-              -e POSTGRES_DB=iwvgdevopsdb \
+              -e POSTGRES_DB=devopsdb_umn6 \
               postgres:15.10
