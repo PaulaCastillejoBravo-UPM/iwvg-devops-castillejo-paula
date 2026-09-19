@@ -13,6 +13,7 @@
 [![DevOps](https://github.com/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula/actions/workflows/continuous-integration.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=paulacastillejobravo-upm_iwvg-devops-castillejo-paula&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=paulacastillejobravo-upm_iwvg-devops-castillejo-paula)
 [![Render](https://iwvg-devops-castillejo-paula.onrender.com/version-badge)](https://iwvg-devops-castillejo-paula.onrender.com/swagger-ui.html)
+[![AWS](http://3.67.67.76:8080/system/version-badge)](http://3.67.67.76:8080/system)
 
 ### Tecnologías necesarias
 `Java` `Maven` `GitHub` `GitHub Actions` `Sonarcloud` `Slack` `Spring-Boot` `GitHub Packages` `Docker` `OpenAPI`
