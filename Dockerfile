@@ -12,18 +12,25 @@ RUN mvn dependency:go-offline -B
    # Solo copia los fuentes java, NO los test
 COPY src ./src
    # Limpia y empaqueta (se crea el *.jar)
-RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests package && cp target/*.jar /app/app.jar
 
 # ==ETAPA 2: Configuración de la app Java ==
    # Contenedor solo con JRE, para hacerlo mas pequeño
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
+RUN addgroup -S app && adduser -S app -G app
    # Copia el archivo *jar generado en el contenedor de construcción
 COPY --from=build /app/target/*.jar app.jar
+USER app
    # Este contenedor escucha el puerto indicado
 EXPOSE 8080
    # Define un comando para cuando se inicialice el contenedor en el host: java -jar app.jar
 CMD ["java", "-jar", "app.jar"]
+EXPOSE 8080
+HEALTHCHECK --interval=120s --timeout=5s --start-period=60s --retries=3 \
+  CMD wget -qO- http://localhost:8080/actuator/health || exit 1
+
+ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar app.jar"]
 
 
 # ------------------------------------- COMANDOS ----------------------------------------------------------
