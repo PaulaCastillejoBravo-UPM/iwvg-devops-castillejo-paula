@@ -45,11 +45,13 @@ jobs:
             ghcr.io/${{ env.REPOSITORY }}:${{ env.VERSION }}
             ghcr.io/${{ env.REPOSITORY }}:latest
 
-      - name: 🚀 Deploy on Render
+      - name: Deploy on Render
         run: |
-          curl --fail -X POST "${{ secrets.RENDER_DEPLOY_HOOK_TOKEN }}" \
-          && echo "✅ Deployment succeeded" \
-          || (echo "❌ Deployment failed" && exit 1)
-
-          echo "✅ Deployment succeded"
+          curl --fail -X POST "$RENDER_DEPLOY_HOOK_TOKEN" \
+          && echo "Deployment succeeded" \
+          || (echo "Deployment failed" && exit 1)
+        
           docker image prune --filter "until=12h" -f
+        env:
+          RENDER_DEPLOY_HOOK_TOKEN: ${{ secrets.RENDER_DEPLOY_HOOK_TOKEN }}
+
