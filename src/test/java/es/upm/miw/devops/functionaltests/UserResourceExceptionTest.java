@@ -1,7 +1,6 @@
 package es.upm.miw.devops.functionaltests;
 
-import es.upm.miw.devops.es.upm.api.infrastructure.data.models.User;
-import es.upm.miw.devops.es.upm.api.infrastructure.data.models.UserActiveUpdate;
+import es.upm.miw.devops.es.upm.api.resources.dtos.UserUpdateDto;
 import es.upm.miw.devops.es.upm.api.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.*;
@@ -98,7 +96,7 @@ class UserResourceExceptionTest {
                 "11111111-1111-1111-1111-111111111111"
         );
 
-        when(userService.updateById(eq(userId), any(User.class)))
+        when(userService.updateById(eq(userId), any(UserUpdateDto.class)))
                 .thenThrow(new RuntimeException("Database error"));
 
         webTestClient.put()

@@ -2,6 +2,7 @@ package es.upm.miw.devops.es.upm.api;
 
 import es.upm.miw.devops.es.upm.api.infrastructure.data.models.User;
 import es.upm.miw.devops.es.upm.api.infrastructure.data.models.UserActiveUpdate;
+import es.upm.miw.devops.es.upm.api.resources.dtos.UserUpdateDto;
 import es.upm.miw.devops.es.upm.api.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +45,7 @@ public class UserController {
     @PutMapping("/user/{id}")
     public User updateById(
             @PathVariable UUID id,
-            @RequestBody User user
+            @RequestBody UserUpdateDto user
     ) {
         return userService.updateById(id, user);
     }
