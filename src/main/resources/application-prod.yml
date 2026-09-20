@@ -5,9 +5,9 @@ logging:
 
 springdoc:
   api-docs:
-    enabled: true # Disable for delivery. false
+    enabled: false
   swagger-ui:
-    enabled: true # Disable for delivery. false
+    enabled: false
 
 app:
   hosting: AWS
