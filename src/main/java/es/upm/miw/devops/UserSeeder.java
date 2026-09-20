@@ -115,7 +115,7 @@ public class UserSeeder implements CommandLineRunner {
                 28003,
                 'Madrid',
                 'password',
-                false,
+                true,
                 'ADMIN'
             )
             ON CONFLICT (id) DO NOTHING;
