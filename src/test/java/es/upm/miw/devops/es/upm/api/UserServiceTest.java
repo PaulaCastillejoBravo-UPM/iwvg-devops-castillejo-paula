@@ -247,4 +247,28 @@ class UserServiceTest {
         assertThatThrownBy(() -> userService.updateActive(users))
                 .isInstanceOf(UserNotFoundException.class);
     }
+
+    @Test
+    void testUpdateActiveListAdminCannotBeDeactivated() {
+        List<UserActiveUpdate> users = List.of(
+                new UserActiveUpdate(
+                        UUID.fromString("11111111-1111-1111-1111-111111111111"),
+                        false
+                ),
+                new UserActiveUpdate(
+                        UUID.fromString("22222222-2222-2222-2222-222222222222"),
+                        true
+                ),
+                new UserActiveUpdate(
+                        UUID.fromString("33333333-3333-3333-3333-333333333333"),
+                        false
+                )
+        );
+
+        List<User> updatedUsers = userService.updateActive(users);
+
+        assertThat(updatedUsers)
+                .extracting(User::getActive)
+                .containsExactly(false, true, true);
+    }
 }
