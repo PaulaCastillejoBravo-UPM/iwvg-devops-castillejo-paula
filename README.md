@@ -2,7 +2,7 @@
 ## Ingeniería Web: Visión General (IWVG) DevOps
 > Este proyecto es un apoyo docente de la asignatura. Cada release liberada corresponde al código utilizado en clase del curso indicado
 
-[![GitHub](https://img.shields.io/github/license/miw-upm/iwvg-devops?color=informational)](https://github.com/miw-upm/iwvg-devops/blob/develop/LICENSE.md)
+[![GitHub](https://img.shields.io/github/license/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula?color=informational)](https://github.com/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula/blob/develop/LICENSE.md)
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula?color=informational)](https://github.com/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula/releases)
 ![GitHub Release Date](https://img.shields.io/github/release-date/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula?color=informational)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula)
