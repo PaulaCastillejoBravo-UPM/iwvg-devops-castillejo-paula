@@ -1,6 +1,7 @@
 package es.upm.miw.devops.es.upm.api.services;
 
 import es.upm.miw.devops.es.upm.api.infrastructure.data.daos.UserDao;
+import es.upm.miw.devops.es.upm.api.infrastructure.data.models.Role;
 import es.upm.miw.devops.es.upm.api.infrastructure.data.models.User;
 import es.upm.miw.devops.es.upm.api.infrastructure.data.models.UserActiveUpdate;
 import es.upm.miw.devops.es.upm.api.resources.dtos.UserUpdateDto;
@@ -77,8 +78,12 @@ public class UserService {
                 throw new UserNotFoundException(user.getId());
             }
 
-            userDao.updateActive(user.getId(), user.getActive());
+            if (existingUser.getRole() == Role.ADMIN && !user.getActive()) {
+                updatedUsers.add(existingUser);
+                continue;
+            }
 
+            userDao.updateActive(user.getId(), user.getActive());
             updatedUsers.add(userDao.findById(user.getId()));
         }
 
