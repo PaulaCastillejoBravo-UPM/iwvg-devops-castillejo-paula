@@ -2,7 +2,7 @@
 ## Ingeniería Web: Visión General (IWVG) DevOps
 > Este proyecto es un apoyo docente de la asignatura. Cada release liberada corresponde al código utilizado en clase del curso indicado
 
-[![GitHub](https://img.shields.io/github/license/miw-upm/iwvg-devops?color=informational)](https://github.com/miw-upm/iwvg-devops/blob/develop/LICENSE.md)
+[![GitHub](https://img.shields.io/github/license/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula?color=informational)](https://github.com/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula/blob/develop/LICENSE.md)
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula?color=informational)](https://github.com/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula/releases)
 ![GitHub Release Date](https://img.shields.io/github/release-date/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula?color=informational)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula)
@@ -13,7 +13,7 @@
 [![DevOps](https://github.com/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/PaulaCastillejoBravo-UPM/iwvg-devops-castillejo-paula/actions/workflows/continuous-integration.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=paulacastillejobravo-upm_iwvg-devops-castillejo-paula&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=paulacastillejobravo-upm_iwvg-devops-castillejo-paula)
 [![Render](https://iwvg-devops-castillejo-paula.onrender.com/version-badge)](https://iwvg-devops-castillejo-paula.onrender.com/swagger-ui.html)
-[![AWS](http://3.72.1.45:8080/version-badge)](http://3.72.1.45:8080/system)
+[![AWS](http://3.72.1.45:8080/version-badge)](http://3.72.1.45:8080)
 
 ### Tecnologías necesarias
 `Java` `Maven` `GitHub` `GitHub Actions` `Sonarcloud` `Slack` `Spring-Boot` `GitHub Packages` `Docker` `OpenAPI`
